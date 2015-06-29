@@ -1,0 +1,183 @@
+<link rel="import"
+      href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../behaviors/highlight-behavior.html">
+<link rel="import" href="../behaviors/draggable-behavior.html">
+
+<dom-module id="post-it">
+
+    <!-- scoped CSS for this element -->
+    <style>
+        :host {
+            margin-left:30%;
+            margin-bottom:35px;
+            margin-top:35px;
+            min-height:200px;
+            width: 240px;
+            padding: 30px;
+            padding-top:80px;
+            color: #3c3e3e;
+            font-weight: bold;
+            display: inline-block;
+
+            position: relative;
+
+            box-shadow: 5px 5px 13px #555555, 0px 0px 2px #555555 inset;
+
+            /* Firefox */
+            -moz-transition: transform 0.3s ease;
+            /* WebKit */
+            -webkit-transition: transform 0.3s ease;
+            /* Opera */
+            -o-transition: transform 0.3s ease;
+            /* Standard */
+            transition: transform 0.3s ease;
+
+        }
+
+        :host.highlighted {
+            box-shadow: 5px 5px 13px #22BBFF, 0px 0px 2px #22BBFF inset;
+        }
+
+        :host.rotate-right-1 {
+            -ms-transform: rotate(0.9deg); /* IE 9 */
+            -webkit-transform: rotate(0.9deg); /* Chrome, Safari, Opera */
+            transform: rotate(0.9deg);
+        }
+
+        :host.rotate-right-2 {
+            -ms-transform: rotate(1.8deg); /* IE 9 */
+            -webkit-transform: rotate(1.8deg); /* Chrome, Safari, Opera */
+            transform: rotate(1.8deg);
+        }
+
+        :host.rotate-right-3 {
+            -ms-transform: rotate(2.7deg); /* IE 9 */
+            -webkit-transform: rotate(2.7deg); /* Chrome, Safari, Opera */
+            transform: rotate(2.7deg);
+        }
+
+        :host.rotate-left-1 {
+            -ms-transform: rotate(-0.9deg); /* IE 9 */
+            -webkit-transform: rotate(-0.9deg); /* Chrome, Safari, Opera */
+            transform: rotate(-0.9deg);
+        }
+
+        :host.rotate-left-2 {
+            -ms-transform: rotate(-1.8deg); /* IE 9 */
+            -webkit-transform: rotate(-1.8deg); /* Chrome, Safari, Opera */
+            transform: rotate(-1.8deg);
+        }
+
+        :host.rotate-left-3 {
+            -ms-transform: rotate(-2.7deg); /* IE 9 */
+            -webkit-transform: rotate(-2.7deg); /* Chrome, Safari, Opera */
+            transform: rotate(-2.7deg);
+        }
+
+        :host.blue {
+            background-color: #31d3d9;
+            background: -moz-linear-gradient(68deg, rgba(255,255,255,0.25) 7%, rgba(255,255,255,0) 26%),-moz-linear-gradient(top, #8da8d8 0%, #31d3d9 15%, #31d3d9 82%, #8da8d8 100%);
+            background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #8da8d8), color-stop(15%, #31d3d9), color-stop(82%, #31d3d9), color-stop(100%, #8da8d8));
+            background: -webkit-linear-gradient(68deg, rgba(255,255,255,0.25) 7%, rgba(255,255,255,0) 26%),-webkit-linear-gradient(top, #8da8d8 0%, #31d3d9 15%, #31d3d9 82%, #8da8d8 100%);
+            background: -o-linear-gradient(68deg, rgba(255,255,255,0.25) 7%, rgba(255,255,255,0) 26%),-o-linear-gradient(top, #8da8d8 0%, #31d3d9 15%, #31d3d9 82%, #8da8d8 100%);
+            background: -ms-linear-gradient(68deg, rgba(255,255,255,0.25) 7%, rgba(255,255,255,0) 26%),-ms-linear-gradient(top, #8da8d8 0%, #31d3d9 15%, #31d3d9 82%, #8da8d8 100%);
+            background: linear-gradient(68deg, rgba(255,255,255,0.25) 7%, rgba(255,255,255,0) 26%),linear-gradient(top, #8da8d8 0%, #31d3d9 15%, #31d3d9 82%, #8da8d8 100%);
+
+        }
+
+        :host.yellow {
+            background: #d9e90a;
+            background: -moz-linear-gradient(68deg, rgba(255,255,255,0.25) 7%, rgba(255,255,255,0) 26%),-moz-linear-gradient(top, #cdc167 0%, #d9e90a 15%, #d9e90a 82%, #cdc167 100%);
+            background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #cdc167), color-stop(15%, #d9e90a), color-stop(82%, #d9e90a), color-stop(100%, #cdc167));
+            background: -webkit-linear-gradient(68deg, rgba(255,255,255,0.25) 7%, rgba(255,255,255,0) 26%),-webkit-linear-gradient(top, #cdc167 0%, #d9e90a 15%, #d9e90a 82%, #cdc167 100%);
+            background: -o-linear-gradient(68deg, rgba(255,255,255,0.25) 7%, rgba(255,255,255,0) 26%),-o-linear-gradient(top, #cdc167 0%, #d9e90a 15%, #d9e90a 82%, #cdc167 100%);
+            background: -ms-linear-gradient(68deg, rgba(255,255,255,0.25) 7%, rgba(255,255,255,0) 26%),-ms-linear-gradient(top, #cdc167 0%, #d9e90a 15%, #d9e90a 82%, #cdc167 100%);
+            background: linear-gradient(68deg, rgba(255,255,255,0.25) 7%, rgba(255,255,255,0) 26%),linear-gradient(top, #cdc167 0%, #d9e90a 15%, #d9e90a 82%, #cdc167 100%);
+
+        }
+
+        :host.magenta {
+            background-color: #e45499;
+            background: -moz-linear-gradient(68deg, rgba(255,255,255,0.25) 7%, rgba(255,255,255,0) 26%),-moz-linear-gradient(top, #c068bf 0%, #e45499 15%, #e45499 82%, #c068bf 100%);
+            background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #c068bf), color-stop(15%, #e45499), color-stop(82%, #e45499), color-stop(100%, #c068bf));
+            background: -webkit-linear-gradient(68deg, rgba(255,255,255,0.25) 7%, rgba(255,255,255,0) 26%),-webkit-linear-gradient(top, #c068bf 0%, #e45499 15%, #e45499 82%, #c068bf 100%);
+            background: -o-linear-gradient(68deg, rgba(255,255,255,0.25) 7%, rgba(255,255,255,0) 26%),-o-linear-gradient(top, #c068bf 0%, #e45499 15%, #e45499 82%, #c068bf 100%);
+            background: -ms-linear-gradient(68deg, rgba(255,255,255,0.25) 7%, rgba(255,255,255,0) 26%),-ms-linear-gradient(top, #c068bf 0%, #e45499 15%, #e45499 82%, #c068bf 100%);
+            background: linear-gradient(68deg, rgba(255,255,255,0.25) 7%, rgba(255,255,255,0) 26%),linear-gradient(top, #c068bf 0%, #e45499 15%, #e45499 82%, #c068bf 100%);
+
+        }
+
+        :host.green {
+            background-color: #36d963;
+            background: -moz-linear-gradient(68deg, rgba(255,255,255,0.25) 7%, rgba(255,255,255,0) 26%),-moz-linear-gradient(top, #b9e1ba 0%, #36d963 15%, #36d963 82%, #b9e1ba 100%);
+            background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #b9e1ba), color-stop(15%, #b9e1ba), color-stop(82%, #36d963), color-stop(100%, #b9e1ba));
+            background: -webkit-linear-gradient(68deg, rgba(255,255,255,0.25) 7%, rgba(255,255,255,0) 26%),-webkit-linear-gradient(top, #a9cde1 0%, #36d963 15%, #36d963 82%, #b9e1ba 100%);
+            background: -o-linear-gradient(68deg, rgba(255,255,255,0.25) 7%, rgba(255,255,255,0) 26%),-o-linear-gradient(top, #b9e1ba 0%, #36d963 15%, #36d963 82%, #b9e1ba 100%);
+            background: -ms-linear-gradient(68deg, rgba(255,255,255,0.25) 7%, rgba(255,255,255,0) 26%),-ms-linear-gradient(top, #b9e1ba 0%, #36d963 15%, #36d963 82%, #b9e1ba 100%);
+            background: linear-gradient(68deg, rgba(255,255,255,0.25) 7%, rgba(255,255,255,0) 26%),linear-gradient(top, #b9e1ba 0%, #36d963 15%, #36d963 82%, #b9e1ba 100%);
+
+        }
+
+    </style>
+
+    <template>
+        <div>
+            <!-- any children are rendered here -->
+            <content></content>
+        </div>
+    </template>
+
+    <script>
+        Polymer({
+
+            is: "post-it",
+
+            behaviors: [HighlightBehavior, DraggableBehavior],
+
+            rotationClass: null,
+
+            properties: {
+                isRotated: {
+                    type: Boolean,
+                    value: true,
+                    notify: true,
+                    observer: '_rotationChanged'
+                },
+                positionLeft: {
+                    type: Number,
+                    value: 0
+                },
+                positionTop: {
+                    type: Number,
+                    value: 0
+                }
+            },
+
+            _rotationChanged: function(value) {
+                this.toggleClass(this.rotationClass, value);
+            },
+
+            created: function() {
+                this.rotationClass = this.getRandomRotationClass();
+                var position = $(this).position();
+                this.positionLeft = position.left;
+                this.positionTop = position.top;
+            },
+
+            getRandomRotationClass: function() {
+
+                function getRandomInt(min, max) {
+                    return Math.floor(Math.random() * (max - min)) + min;
+                }
+
+                var leftOrRight = getRandomInt(0, 2);
+                var degree = getRandomInt(1, 4);
+
+                return 'rotate-' + (leftOrRight === 0 ? 'left': 'right') + '-' + degree;
+
+            }
+
+        });
+    </script>
+
+</dom-module>

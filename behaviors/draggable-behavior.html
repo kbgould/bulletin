@@ -1,0 +1,38 @@
+<script>
+    DraggableBehavior = {
+
+        properties: {
+            isPickedUp: {
+                type: Boolean,
+                value: false,
+                notify: true
+            }
+        },
+
+        listeners: {
+            mousedown: '_pickUp',
+            mouseup: '_putDown'
+        },
+
+        created: function() {
+            console.log('Dragging for ', this, 'enabled!');
+            $(this).addClass('ui-widget-content');
+            $(this).draggable();
+        },
+
+        _pickUp: function() {
+            this.isPickedUp = true;
+            this.isHighlighted = true;
+            this.isRotated = false;
+        },
+
+        _putDown: function() {
+            this.isPickedUp = false;
+            this.isHighlighted = false;
+            this.isRotated = true;
+        }
+
+
+
+    };
+</script>
