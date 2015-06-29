@@ -1,0 +1,75 @@
+<link rel="import"
+      href="../bower_components/polymer/polymer.html">
+
+<dom-module id="create-item-button">
+
+    <!-- scoped CSS for this element -->
+    <style>
+        :host {
+            position:absolute;
+            width:80px;
+            height:80px;
+            top: calc(100% - 100px);
+            left: calc(100% - 100px);
+        }
+
+        :host::after {
+            position:absolute;
+            top: calc(100% - 80px);
+            left: calc(100% - 80px);
+            color:rgba(74,74,74,0.7);
+            content: "+";
+            font-size:60px;
+            font-family: monospace;
+            width:80px;
+            height:80px;
+
+        }
+
+        :host:hover::after {
+            color:rgba(31,152,250,0.7);
+        }
+
+        :host::before {
+            position:absolute;
+            top: calc(100% - 80px);
+            left: calc(100% - 95px);
+            content: "";
+            font-size:60px;
+            font-family: monospace;
+            width:60px;
+            height:60px;
+            border:4px solid rgba(74,74,74,0.7);
+            border-radius:15px;
+        }
+
+        :host:hover::before {
+            border-color:rgba(31,152,250,0.7);
+        }
+
+    </style>
+
+    <template>
+        <div>
+            <!-- any children are rendered here -->
+            <content></content>
+        </div>
+    </template>
+
+    <script>
+        Polymer({
+            is: "create-item-button",
+
+            listeners: {
+                click: '_toggleItemTray'
+            },
+
+            _toggleItemTray: function () {
+                var tray = $('item-tray')[0];
+                tray.isVisible = !tray.isVisible;
+            }
+
+        });
+    </script>
+
+</dom-module>
