@@ -11,11 +11,6 @@
             height:80px;
             top: calc(100% + 100px);
             left: 20%;
-            background-color:rgba(74,74,74,0.5);
-
-            -ms-transform: perspective(80px) rotateX(15deg); /* IE 9 */
-            -webkit-transform: perspective(80px) rotateX(15deg); /* Chrome, Safari, Opera */
-            transform: perspective(80px) rotateX(15deg);
 
             /* Firefox */
             -moz-transition: top 0.4s ease;
@@ -28,19 +23,21 @@
 
         }
 
-        :host::after {
+        :host .content {
+            padding-left: 80px;
+            padding-right: 80px;
+        }
 
-            position:absolute;
-            content:"";
-            width:80%;
-            height:10px;
-            top: calc(100% - 70px);
-            left: 10%;
+        :host .tray {
 
-            background-color:rgba(74,74,74,0.7);
-            border-radius:20px;
+            height:80px;
 
-            box-shadow: 5px 5px 13px rgba(74,74,74,0.7), 0px 0px 2px rgba(74,74,74,0.7) inset;
+            background-color:rgba(74,74,74,0.5);
+
+            -ms-transform: perspective(80px) rotateX(15deg); /* IE 9 */
+            -webkit-transform: perspective(80px) rotateX(15deg); /* Chrome, Safari, Opera */
+            transform: perspective(80px) rotateX(15deg);
+
         }
 
         :host.visible {
@@ -50,7 +47,8 @@
     </style>
 
     <template>
-        <div>
+        <div class="tray"></div>
+        <div class="content">
             <!-- any children are rendered here -->
             <content></content>
         </div>

@@ -1,5 +1,5 @@
 <script>
-    DraggableBehavior = {
+    DragDropBehavior = {
 
         properties: {
             isPickedUp: {
@@ -10,13 +10,13 @@
         },
 
         listeners: {
-            mousedown: '_pickUp',
-            mouseup: '_putDown'
+            dragstart: '_pickUp',
+            drop: '_putDown'
         },
 
         created: function() {
-            console.log('Dragging for ', this, 'enabled!');
-            $(this).draggable();
+            console.log('Drag-drop for ', this, 'enabled!');
+            $(this).attr("draggable", true);
         },
 
         _pickUp: function() {

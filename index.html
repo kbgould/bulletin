@@ -3,23 +3,28 @@
 <head>
     <link rel="stylesheet" type="text/css" href="vendor/jquery-ui.min.css">
     <link rel="stylesheet" type="text/css" href="vendor/jquery-ui.structure.min.css">
+    <link rel="stylesheet" type="text/css" href="public/css/style.css">
     <script src="vendor/jquery-1.11.3.min.js"></script>
     <script src="vendor/jquery-ui.min.js"></script>
     <script src="bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
-    <link rel="import" href="proto-element.html">
-    <link rel="import" href="picture-frame.html">
+    <link rel="import" href="components/bulletin-area.html">
     <link rel="import" href="components/post-it.html">
     <link rel="import" href="components/create-item-button.html">
     <link rel="import" href="components/item-tray.html">
+    <link rel="import" href="components/item-icon.html">
 </head>
 <body style="background-image: url('public/img/corkboard.jpg');">
-<post-it class="green">
-    Hey guys!  I'm a post it!
-</post-it>
-<post-it class="yellow">
-    Me toooooo!
-</post-it>
-<create-item-button></create-item-button>
-<item-tray></item-tray>
+<bulletin-area>
+    <post-it class="green">
+        Hey guys!  I'm a post it!
+    </post-it>
+    <post-it class="yellow">
+        Me toooooo!
+    </post-it>
+    <create-item-button></create-item-button>
+    <item-tray>
+        <item-icon></item-icon>
+    </item-tray>
+</bulletin-area>
 </body>
 </html>

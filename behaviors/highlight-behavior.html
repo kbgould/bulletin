@@ -11,8 +11,10 @@
         },
 
         listeners: {
-            mousedown: '_enableHighlight',
-            mouseup: '_disableHighlight'
+            mouseenter: '_enableHighlight',
+            mouseover: '_enableHighlight',
+            mouseleave: '_disableHighlight',
+            mouseout: '_disableHighlight'
         },
 
         created: function() {

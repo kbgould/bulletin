@@ -1,0 +1,25 @@
+<script>
+    DropBehavior = {
+
+        listeners: {
+            dragover: '_enterDropZone',
+            drop: '_drop'
+        },
+
+        created: function() {
+            console.log('Drag-drop for ', this, 'enabled!');
+            $(this).attr("draggable", true);
+        },
+
+        _enterDropZone: function(event) {
+            event.preventDefault();
+        },
+
+        _drop: function() {
+            alert("create a new post it...");
+        }
+
+
+
+    };
+</script>
