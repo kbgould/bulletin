@@ -13,18 +13,14 @@
     <link rel="import" href="components/item-tray.html">
     <link rel="import" href="components/item-icon.html">
 </head>
-<body style="background-image: url('public/img/corkboard.jpg');">
+<body unselectable="on">
 <bulletin-area>
-    <post-it class="green">
-        Hey guys!  I'm a post it!
-    </post-it>
-    <post-it class="yellow">
-        Me toooooo!
-    </post-it>
-    <create-item-button></create-item-button>
-    <item-tray>
-        <item-icon></item-icon>
-    </item-tray>
+    <post-it text="Hey guys! I'm a post it!"></post-it>
+    <post-it text="Me toooooo!"></post-it>
 </bulletin-area>
+<create-item-button></create-item-button>
+<item-tray>
+    <item-icon></item-icon>
+</item-tray>
 </body>
 </html>

@@ -1,0 +1,28 @@
+<script>
+    DoubleClickEditBehavior = {
+
+        listeners: {
+            dblclick: '_enableEdit'
+        },
+
+        created: function() {
+            var self = this;
+            $('html').click(function(event) {
+                self._disableEdit(event, self);
+            });
+        },
+
+        _enableEdit: function() {
+            this.isEditable = true;
+        },
+
+        _disableEdit: function(event, self) {
+            var contains = $.contains(self, event.target);
+            var equals = (self === event.target);
+            if (!contains && !equals) {
+                this.isEditable = false;
+            }
+        }
+
+    };
+</script>

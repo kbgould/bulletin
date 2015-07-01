@@ -7,16 +7,19 @@
         },
 
         created: function() {
-            console.log('Drag-drop for ', this, 'enabled!');
-            $(this).attr("draggable", true);
+
         },
 
         _enterDropZone: function(event) {
             event.preventDefault();
         },
 
-        _drop: function() {
-            alert("create a new post it...");
+        _drop: function(event) {
+            var postIt = $('<post-it></post-it>');
+            $(this).find('div.bulletin-area').append(postIt);
+            var dropLeft = event.offsetX - 40;
+            var dropTop = event.offsetY - 40;
+            postIt.offset({ left: dropLeft, top: dropTop });
         }
 
 
