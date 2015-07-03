@@ -10,14 +10,18 @@
     <style>
         :host {
             margin:30px;
-            min-height:120px;
+            min-height:170px;
             width: 160px;
             padding: 30px;
-            padding-top:80px;
+            padding-top:30px;
             color: #3c3e3e;
-            font-weight: bold;
-            display: inline-block;
 
+            font-family:"Helvetica", sans-serif;
+            font-size: 14px;
+            font-weight: bold;
+            line-height:16px;
+
+            display: inline-block;
             position: absolute;
 
             box-shadow: 5px 5px 13px #555555, 0px 0px 2px #555555 inset;
@@ -122,12 +126,20 @@
         }
 
         :host textarea {
+
+            font-family:"Helvetica", sans-serif;
+            font-size: 14px;
+            font-weight: bold;
+            line-height:16px;
+
+            position:relative;
+
+            overflow:hidden;
+            resize:none;
             width:100%;
-            height:100%;
             outline:none;
             border:none;
             background-color:transparent;
-
 
         }
 
@@ -186,7 +198,7 @@
 
                     var text = this.text;
                     this.text = "";
-                    var textArea = $("<textarea></textarea>").val(text)[0];
+                    var textArea = $("<textarea rows='10'></textarea>").val(text)[0];
                     Polymer.dom(this.root).appendChild(textArea);
 
                 } else {

@@ -1,34 +1,45 @@
 <script>
     DraggableBehavior = {
 
-        properties: {
-            isPickedUp: {
-                type: Boolean,
-                value: false,
-                notify: true
-            }
-        },
-
         listeners: {
             mousedown: '_pickUp',
             mouseup: '_putDown'
         },
 
-        created: function() {
-            $(this).draggable();
+        properties: {
+            _startX: {
+                type: Number,
+                value: 0
+            },
+            _startY: {
+                type: Number,
+                value: 0
+            }
         },
 
-        _pickUp: function() {
-            this.isPickedUp = true;
+        _pickUp: function(event) {
+            var self = this;
+            this._startX = event.screenX;
+            this._startY = event.screenY;
+            $('html').on('mousemove', function(event) {
+                self._move(event);
+            });
             this.isRotated = false;
         },
 
         _putDown: function() {
-            this.isPickedUp = false;
+            $('html').off('mousemove');
             this.isRotated = true;
+        },
+
+        _move: function(event) {
+            var offset = $(this).offset();
+            var deltaX = event.screenX - this._startX;
+            var deltaY = event.screenY - this._startY;
+            this._startX = event.screenX;
+            this._startY = event.screenY;
+            $(this).offset({ left: offset.left + deltaX, top: offset.top + deltaY });
         }
-
-
 
     };
 </script>
