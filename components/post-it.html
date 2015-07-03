@@ -190,6 +190,7 @@
 
             _rotationChanged: function(value) {
                 this.toggleClass(this.rotationClass, value);
+                this.toggleClass(this.baseRotationClass, !value);
             },
 
             _editableChanged: function(value) {
@@ -215,7 +216,11 @@
             },
 
             created: function() {
-                this.rotationClass = this.getRandomRotationClass();
+
+                var rotationClasses = this.getRandomRotationClasses();
+
+                this.rotationClass = rotationClasses.rotation;
+                this.baseRotationClass = rotationClasses.baseRotation;
 
                 var position = $(this).position();
                 this.positionLeft = position.left;
@@ -236,12 +241,18 @@
 
             },
 
-            getRandomRotationClass: function() {
+            getRandomRotationClasses: function() {
 
                 var leftOrRight = this.getRandomInt(0, 2);
                 var degree = this.getRandomInt(1, 4);
 
-                return 'rotate-' + (leftOrRight === 0 ? 'left': 'right') + '-' + degree;
+                var rotation = 'rotate-' + (leftOrRight === 0 ? 'left': 'right') + '-' + degree;
+                var baseRotation = 'rotate-' + (leftOrRight === 0 ? 'right': 'left') + '-1';
+
+                return {
+                    rotation: rotation,
+                    baseRotation: baseRotation
+                }
 
             }
 
