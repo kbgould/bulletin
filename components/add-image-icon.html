@@ -3,13 +3,14 @@
 <link rel="import" href="../behaviors/highlight-behavior.html">
 <link rel="import" href="../behaviors/drag-drop-behavior.html">
 
-<dom-module id="item-icon">
+<dom-module id="post-it-icon">
 
     <!-- scoped CSS for this element -->
     <style>
         :host {
             height:52px;
             width: 52px;
+            margin-right:35px;
             color: #3c3e3e;
             font-weight: bold;
             display: inline-block;
@@ -86,7 +87,7 @@
     <script>
         Polymer({
 
-            is: "item-icon",
+            is: "post-it-icon",
 
             behaviors: [HighlightBehavior, DragDropBehavior]
 

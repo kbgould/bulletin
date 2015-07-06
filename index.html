@@ -9,18 +9,22 @@
     <script src="bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
     <link rel="import" href="components/bulletin-area.html">
     <link rel="import" href="components/post-it.html">
+    <link rel="import" href="components/polaroid-picture.html">
     <link rel="import" href="components/create-item-button.html">
     <link rel="import" href="components/item-tray.html">
-    <link rel="import" href="components/item-icon.html">
+    <link rel="import" href="components/post-it-icon.html">
 </head>
 <body unselectable="on">
 <bulletin-area>
     <post-it text="Hey guys! I'm a post it!"></post-it>
     <post-it text="Me toooooo!"></post-it>
+    <polaroid-picture></polaroid-picture>
+    <input type="file" id="input" style="margin:50px;">
 </bulletin-area>
 <create-item-button></create-item-button>
 <item-tray>
-    <item-icon></item-icon>
+    <post-it-icon></post-it-icon>
+    <post-it-icon></post-it-icon>
 </item-tray>
 </body>
 </html>

@@ -1,0 +1,98 @@
+<link rel="import"
+      href="bower_components/polymer/polymer.html">
+<link rel="import" href="../behaviors/highlight-behavior.html">
+<link rel="import" href="../behaviors/drag-drop-behavior.html">
+
+<dom-module id="post-it-icon">
+
+    <!-- scoped CSS for this element -->
+    <style>
+
+        :host {
+            height:52px;
+            width: 52px;
+            margin-right:35px;
+            color: #3c3e3e;
+            font-weight: bold;
+            display: inline-block;
+
+            position: relative;
+
+            top:-110px;
+
+            box-shadow: 5px 5px 13px #555555, 0 0 2px #555555 inset;
+
+            -ms-transform: rotate(-4.9deg); /* IE 9 */
+            -webkit-transform: rotate(-4.9deg); /* Chrome, Safari, Opera */
+            transform: rotate(-4.9deg);
+
+            background: #d9e90a;
+            background: -moz-linear-gradient(68deg, rgba(255,255,255,0.25) 7%, rgba(255,255,255,0) 26%),-moz-linear-gradient(top, #cdc167 0%, #d9e90a 15%, #d9e90a 82%, #cdc167 100%);
+            background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #cdc167), color-stop(15%, #d9e90a), color-stop(82%, #d9e90a), color-stop(100%, #cdc167));
+            background: -webkit-linear-gradient(68deg, rgba(255,255,255,0.25) 7%, rgba(255,255,255,0) 26%),-webkit-linear-gradient(top, #cdc167 0%, #d9e90a 15%, #d9e90a 82%, #cdc167 100%);
+            background: -o-linear-gradient(68deg, rgba(255,255,255,0.25) 7%, rgba(255,255,255,0) 26%),-o-linear-gradient(top, #cdc167 0%, #d9e90a 15%, #d9e90a 82%, #cdc167 100%);
+            background: -ms-linear-gradient(68deg, rgba(255,255,255,0.25) 7%, rgba(255,255,255,0) 26%),-ms-linear-gradient(top, #cdc167 0%, #d9e90a 15%, #d9e90a 82%, #cdc167 100%);
+            background: linear-gradient(68deg, rgba(255,255,255,0.25) 7%, rgba(255,255,255,0) 26%),linear-gradient(top, #cdc167 0%, #d9e90a 15%, #d9e90a 82%, #cdc167 100%);
+
+            /* Firefox */
+            -moz-transition: box-shadow 0.15s ease;
+            /* WebKit */
+            -webkit-transition: box-shadow 0.15s ease;
+            /* Opera */
+            -o-transition: box-shadow 0.15s ease;
+            /* Standard */
+            transition: box-shadow 0.15s ease;
+
+        }
+
+        :host::after {
+            position:relative;
+            display:block;
+            top:70px;
+            height:20px;
+            width:50px;
+            content: "";
+            background-color:rgba(74,74,74,0.5);
+            border-radius:50%;
+            box-shadow: 0 0 20px #555555;
+
+            /* Firefox */
+            -moz-transition: background-color 0.15s ease, box-shadow 0.15s ease;
+            /* WebKit */
+            -webkit-transition: background-color 0.15s ease, box-shadow 0.15s ease;
+            /* Opera */
+            -o-transition: background-color 0.15s ease, box-shadow 0.15s ease;
+            /* Standard */
+            transition: background-color 0.15s ease, box-shadow 0.15s ease;
+
+        }
+
+        :host.highlighted {
+            box-shadow: 5px 5px 13px #22BBFF, 0px 0px 2px #22BBFF inset;
+        }
+
+        :host.highlighted::after {
+            background-color:rgba(34,187,255,0.5);
+            box-shadow: 0 0 20px #22BBFF;
+        }
+
+    </style>
+
+    <template>
+        <div>
+            <!-- any children are rendered here -->
+            <content></content>
+        </div>
+    </template>
+
+    <script>
+        Polymer({
+
+            is: "post-it-icon",
+
+            behaviors: [HighlightBehavior, DragDropBehavior]
+
+        });
+    </script>
+
+</dom-module>

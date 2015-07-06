@@ -1,0 +1,161 @@
+<link rel="import"
+      href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../behaviors/highlight-behavior.html">
+<link rel="import" href="../behaviors/draggable-behavior.html">
+
+<dom-module id="polaroid-picture">
+
+    <!-- scoped CSS for this element -->
+    <style>
+
+        :host {
+
+            margin:30px;
+
+            box-sizing:border-box;
+            min-height:170px;
+            min-width: 170px;
+
+            border: 20px solid white;
+            border-bottom:60px solid white;
+            box-shadow: 3px 3px 3px #666666, 0px 0px 2px #666666 inset;
+
+            display: inline-block;
+            position: absolute;
+
+            /* Firefox */
+            -moz-transition: transform 0.15s ease, box-shadow 0.15s ease;
+            /* WebKit */
+            -webkit-transition: transform 0.15s ease, box-shadow 0.15s ease;
+            /* Opera */
+            -o-transition: transform 0.15s ease, box-shadow 0.15s ease;
+            /* Standard */
+            transition: transform 0.15s ease, box-shadow 0.15s ease;
+
+        }
+
+        :host ::content img {
+            vertical-align: top;
+        }
+
+        :host.highlighted {
+            box-shadow: 5px 5px 13px #22BBFF, 0 0 2px #22BBFF inset;
+        }
+
+        :host.rotate-right-1 {
+            -ms-transform: rotate(0.9deg); /* IE 9 */
+            -webkit-transform: rotate(0.9deg); /* Chrome, Safari, Opera */
+            transform: rotate(0.9deg);
+        }
+
+        :host.rotate-right-2 {
+            -ms-transform: rotate(1.8deg); /* IE 9 */
+            -webkit-transform: rotate(1.8deg); /* Chrome, Safari, Opera */
+            transform: rotate(1.8deg);
+        }
+
+        :host.rotate-right-3 {
+            -ms-transform: rotate(2.7deg); /* IE 9 */
+            -webkit-transform: rotate(2.7deg); /* Chrome, Safari, Opera */
+            transform: rotate(2.7deg);
+        }
+
+        :host.rotate-left-1 {
+            -ms-transform: rotate(-0.9deg); /* IE 9 */
+            -webkit-transform: rotate(-0.9deg); /* Chrome, Safari, Opera */
+            transform: rotate(-0.9deg);
+        }
+
+        :host.rotate-left-2 {
+            -ms-transform: rotate(-1.8deg); /* IE 9 */
+            -webkit-transform: rotate(-1.8deg); /* Chrome, Safari, Opera */
+            transform: rotate(-1.8deg);
+        }
+
+        :host.rotate-left-3 {
+            -ms-transform: rotate(-2.7deg); /* IE 9 */
+            -webkit-transform: rotate(-2.7deg); /* Chrome, Safari, Opera */
+            transform: rotate(-2.7deg);
+        }
+
+    </style>
+
+    <template>
+        <!-- any children are rendered here -->
+        <content></content>
+    </template>
+
+    <script>
+        Polymer({
+
+            is: "polaroid-picture",
+
+            behaviors: [HighlightBehavior, DraggableBehavior],
+
+            rotationClass: null,
+
+            properties: {
+                isRotated: {
+                    type: Boolean,
+                    value: true,
+                    notify: true,
+                    observer: '_rotationChanged'
+                },
+                positionLeft: {
+                    type: Number,
+                    value: 0
+                },
+                positionTop: {
+                    type: Number,
+                    value: 0
+                }
+            },
+
+            _rotationChanged: function(value) {
+                this.toggleClass(this.rotationClass, value);
+                this.toggleClass(this.baseRotationClass, !value);
+            },
+
+            created: function() {
+
+                var img = $('<img src="public/img/gazebo.jpg">')
+                        .addClass( 'unselectable' ) // All these attributes are inheritable
+                        .attr( 'unselectable', 'on' ) // For IE9 - This property is not inherited, needs to be placed onto everything
+                        .attr( 'draggable', 'false' ) // For moz and webkit, although Firefox 16 ignores this when -moz-user-select: none; is set, it's like these properties are mutually exclusive, seems to be a bug.
+                        .on( 'dragstart', function() { return false; } )[0];
+                Polymer.dom(this.root).appendChild(img);
+
+                var rotationClasses = this.getRandomRotationClasses();
+
+                this.rotationClass = rotationClasses.rotation;
+                this.baseRotationClass = rotationClasses.baseRotation;
+
+                var position = $(this).position();
+                this.positionLeft = position.left;
+                this.positionTop = position.top;
+
+            },
+
+            getRandomInt: function (min, max) {
+                return Math.floor(Math.random() * (max - min)) + min;
+            },
+
+            getRandomRotationClasses: function() {
+
+                var leftOrRight = this.getRandomInt(0, 2);
+                var degree = this.getRandomInt(1, 4);
+
+                var rotation = 'rotate-' + (leftOrRight === 0 ? 'left': 'right') + '-' + degree;
+                var baseRotation = 'rotate-' + (leftOrRight === 0 ? 'right': 'left') + '-1';
+
+                return {
+                    rotation: rotation,
+                    baseRotation: baseRotation
+                }
+
+            }
+
+        });
+    </script>
+
+</dom-module>
