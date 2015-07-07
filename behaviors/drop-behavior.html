@@ -15,11 +15,68 @@
         },
 
         _drop: function(event) {
-            var postIt = $('<post-it></post-it>');
-            $(this).find('div.bulletin-area').append(postIt);
-            var dropLeft = event.offsetX - 40;
-            var dropTop = event.offsetY - 40;
-            postIt.offset({ left: dropLeft, top: dropTop });
+
+            var dataObject = event.dataTransfer.getData('application/json');
+
+            dataObject = JSON.parse(dataObject);
+
+            switch (dataObject.component) {
+
+                case "post-it":
+
+                    var postIt = $('<post-it></post-it>');
+                    $(this).find('div.bulletin-area').append(postIt);
+                    var dropLeft = event.offsetX - 40;
+                    var dropTop = event.offsetY - 40;
+                    postIt.offset({ left: dropLeft, top: dropTop });
+
+                    break;
+
+                case "polaroid-picture":
+
+                    var fileElem = document.getElementById("fileElem");
+                    fileElem.click();
+
+                    var self = this;
+
+                    fileElem.onchange = function(event) {
+
+                        var files = event.currentTarget.files;
+
+                        for (var i = 0; i < files.length; i++) {
+                            var file = files[i];
+                            var imageType = /^image\//;
+
+                            if (!imageType.test(file.type)) {
+                                continue;
+                            }
+
+                            var img = document.createElement("img");
+                            img.classList.add("obj");
+                            img.file = file;
+
+                            var polaroid = $('<polaroid-picture created-from-file="true"></polaroid-picture>');
+                            $(self).find('div.bulletin-area').append(polaroid);
+                            var dropLeft = event.offsetX - 40;
+                            var dropTop = event.offsetY - 40;
+                            polaroid.offset({ left: dropLeft, top: dropTop });
+
+                            var reader = new FileReader();
+                            reader.onload = (function(aImg) {
+                                return function(e) {
+                                    aImg.src = e.target.result;
+                                    polaroid[0].addImage(img);
+                                };
+                            })(img);
+                            reader.readAsDataURL(file);
+                        }
+
+                    };
+
+                    break;
+
+            }
+
         }
 
 

@@ -20,8 +20,6 @@
 
             top:-110px;
 
-            box-shadow: 5px 5px 13px #555555, 0 0 2px #555555 inset;
-
             -ms-transform: rotate(-4.9deg); /* IE 9 */
             -webkit-transform: rotate(-4.9deg); /* Chrome, Safari, Opera */
             transform: rotate(-4.9deg);
@@ -90,7 +88,17 @@
 
             is: "post-it-icon",
 
-            behaviors: [HighlightBehavior, DragDropBehavior]
+            behaviors: [HighlightBehavior, DragDropBehavior],
+
+            _dataTransfer: function (event) {
+
+                var dataTransferObj = {
+                  component: 'post-it'
+                };
+
+                event.dataTransfer.setData('application/json', JSON.stringify(dataTransferObj));
+
+            }
 
         });
     </script>

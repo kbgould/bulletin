@@ -18,9 +18,10 @@
             $(this).attr("draggable", true);
         },
 
-        _pickUp: function() {
+        _pickUp: function(event) {
             this.isPickedUp = true;
             this.isRotated = false;
+            this._dataTransfer(event);
         },
 
         _putDown: function() {
