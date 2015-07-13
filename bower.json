@@ -1,0 +1,20 @@
+{
+  "name": "bulletin",
+  "version": "0.0.0",
+  "homepage": "https://github.com/kbgould/bulletin",
+  "description": "Polymer bulletin board.",
+  "authors": [
+    "Keith Gould"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#^1.0.0"
+  }
+}

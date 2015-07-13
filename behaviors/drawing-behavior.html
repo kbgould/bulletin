@@ -1,0 +1,95 @@
+<script>
+    DrawingBehavior = {
+
+        properties: {
+            context: {
+                type: Object
+            },
+            paint: {
+                type: Boolean,
+                value: false
+            },
+            clickX: {
+                type: Array,
+                value: []
+            },
+            clickY: {
+                type: Array,
+                value: []
+            },
+            clickDrag: {
+                type: Array,
+                value: []
+            }
+        },
+
+        listeners: {
+            mousedown: '_startDrawing',
+            mousemove: '_continueDrawing',
+            mouseup: '_stopDrawing',
+            mouseleave: '_stopDrawing'
+        },
+
+        attached: function() {
+            var canvasObject = this.$$('canvas');
+            canvasObject.setAttribute('width', window.innerWidth);
+            canvasObject.setAttribute('height', window.innerHeight);
+            this.context = this.$$('canvas').getContext("2d");
+        },
+
+        _startDrawing: function(e) {
+            var mouseX = e.pageX - this.offsetLeft;
+            var mouseY = e.pageY - this.offsetTop;
+
+            this.paint = true;
+            this._addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop, false);
+            this._redraw();
+        },
+
+        _continueDrawing: function(e) {
+            if(this.paint){
+                this._addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop, true);
+                this._redraw();
+            }
+        },
+
+        _stopDrawing: function(e) {
+            this.paint = false;
+        },
+
+        _addClick: function(x, y, dragging) {
+            this.clickX.push(x);
+            this.clickY.push(y);
+            this.clickDrag.push(dragging);
+        },
+
+        testDraw: function() {
+            this.context.strokeStyle = "#000000";
+            this.context.lineJoin = "round";
+            this.context.lineWidth = 1;
+        },
+
+        _redraw: function() {
+            var width = this.$$('canvas').width;
+            var height = this.$$('canvas').height;
+            this.context.clearRect(0, 0, width, height); // Clears the canvas
+
+            this.context.strokeStyle = "#df4b26";
+            this.context.lineJoin = "round";
+            this.context.lineWidth = 4;
+
+            for(var i=0; i < this.clickX.length; i++) {
+                this.context.beginPath();
+                if(this.clickDrag[i] && i){
+                    this.context.moveTo(this.clickX[i-1], this.clickY[i-1]);
+                }else{
+                    this.context.moveTo(this.clickX[i]-1, this.clickY[i]);
+                }
+                this.context.lineTo(this.clickX[i], this.clickY[i]);
+                //this.context.closePath();
+                this.context.stroke();
+            }
+        }
+
+    };
+</script>

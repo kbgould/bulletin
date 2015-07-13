@@ -1,6 +1,7 @@
 <link rel="import"
       href="../bower_components/polymer/polymer.html">
 <link rel="import" href="../behaviors/drop-behavior.html">
+<link rel="import" href="../behaviors/drawing-behavior.html">
 
 <dom-module id="bulletin-area">
 
@@ -12,9 +13,22 @@
             height:100vh;
         }
 
+        :host ::content canvas {
+            position:absolute;
+            width:100vw;
+            height:100vh;
+        }
+
+        :host ::content div {
+            z-index: 1;
+        }
+
     </style>
 
     <template>
+        <canvas>
+
+        </canvas>
         <div>
             <!-- any children are rendered here -->
             <content></content>
@@ -26,7 +40,7 @@
 
             is: "bulletin-area",
 
-            behaviors: [DropBehavior]
+            behaviors: [DropBehavior, DrawingBehavior]
 
         });
     </script>
