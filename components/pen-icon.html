@@ -1,0 +1,112 @@
+<link rel="import"
+      href="bower_components/polymer/polymer.html">
+<link rel="import" href="../behaviors/highlight-selectable-behavior.html">
+
+<dom-module id="pen-icon">
+
+    <!-- scoped CSS for this element -->
+    <style>
+
+        :host {
+            height:46px;
+            width: 46px;
+            margin-right:35px;
+            color: #3c3e3e;
+            font-weight: bold;
+            display: inline-block;
+
+            position: relative;
+
+            top:-110px;
+
+            -ms-transform: rotate(30deg); /* IE 9 */
+            -webkit-transform: rotate(30deg); /* Chrome, Safari, Opera */
+            transform: rotate(30deg);
+
+            /* Firefox */
+            -moz-transition: box-shadow 0.15s ease;
+            /* WebKit */
+            -webkit-transition: box-shadow 0.15s ease;
+            /* Opera */
+            -o-transition: box-shadow 0.15s ease;
+            /* Standard */
+            transition: box-shadow 0.15s ease;
+
+        }
+
+        :host::after {
+            position:relative;
+            height:56px;
+            width: 3px;
+            margin-right:35px;
+            color: #3c3e3e;
+            font-weight: bold;
+            display: block;
+            content:"";
+
+            top:-38px;
+            left:26px;
+
+            border: 1px solid blue;
+            border-radius:50px;
+
+            background-color:blue;
+
+        }
+
+        :host::before {
+            -ms-transform: rotate(-30deg); /* IE 9 */
+            -webkit-transform: rotate(-30deg); /* Chrome, Safari, Opera */
+            transform: rotate(-30deg);
+
+            position:relative;
+            display:block;
+            left:34px;
+            top:53px;
+            height:20px;
+            width:50px;
+            content: "";
+            background-color:rgba(74,74,74,0.5);
+            border-radius:50%;
+            box-shadow: 0 0 20px #555555;
+
+            /* Firefox */
+            -moz-transition: background-color 0.15s ease, box-shadow 0.15s ease;
+            /* WebKit */
+            -webkit-transition: background-color 0.15s ease, box-shadow 0.15s ease;
+            /* Opera */
+            -o-transition: background-color 0.15s ease, box-shadow 0.15s ease;
+            /* Standard */
+            transition: background-color 0.15s ease, box-shadow 0.15s ease;
+
+        }
+
+        :host.highlighted::before {
+            box-shadow: 5px 5px 13px #22BBFF, 0 0 2px #22BBFF inset;
+        }
+
+        :host.highlighted::before {
+            background-color:rgba(34,187,255,0.5);
+            box-shadow: 0 0 20px #22BBFF;
+        }
+
+    </style>
+
+    <template>
+        <div>
+            <!-- any children are rendered here -->
+            <content></content>
+        </div>
+    </template>
+
+    <script>
+        Polymer({
+
+            is: "pen-icon",
+
+            behaviors: [HighlightSelectableBehavior]
+
+        });
+    </script>
+
+</dom-module>

@@ -1,0 +1,49 @@
+<script>
+    HighlightSelectableBehavior = {
+
+        properties: {
+            isHighlighted: {
+                type: Boolean,
+                value: false,
+                notify: true,
+                observer: '_highlightChanged'
+            },
+            isSelected: {
+                type: Boolean,
+                value: false
+            }
+        },
+
+        listeners: {
+            mouseenter: '_enableHighlight',
+            mouseover: '_enableHighlight',
+            mouseleave: '_disableHighlight',
+            mouseout: '_disableHighlight',
+            click: '_select'
+        },
+
+        created: function() {
+        },
+
+        _enableHighlight: function() {
+            if (!this.isSelected) {
+                this.isHighlighted = true;
+            }
+        },
+
+        _disableHighlight: function() {
+            if (!this.isSelected) {
+                this.isHighlighted = false;
+            }
+        },
+
+        _highlightChanged: function(value) {
+            this.toggleClass('highlighted', value);
+        },
+
+        _select: function() {
+            this.isSelected = !this.isSelected;
+        }
+
+    };
+</script>

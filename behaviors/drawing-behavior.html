@@ -38,23 +38,44 @@
         },
 
         _startDrawing: function(e) {
-            var mouseX = e.pageX - this.offsetLeft;
-            var mouseY = e.pageY - this.offsetTop;
 
-            this.paint = true;
-            this._addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop, false);
-            this._redraw();
+            var penIsSelected = document.getElementsByTagName('pen-icon')[0].isSelected;
+
+            if (penIsSelected) {
+
+                this.paint = true;
+                this._addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop, false);
+                this._redraw();
+
+            }
+
         },
 
         _continueDrawing: function(e) {
-            if(this.paint){
-                this._addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop, true);
-                this._redraw();
+
+            var penIsSelected = document.getElementsByTagName('pen-icon')[0].isSelected;
+
+            if (penIsSelected) {
+
+                if (this.paint) {
+                    this._addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop, true);
+                    this._redraw();
+                }
+
             }
+
         },
 
         _stopDrawing: function(e) {
-            this.paint = false;
+
+            var penIsSelected = document.getElementsByTagName('pen-icon')[0].isSelected;
+
+            if (penIsSelected) {
+
+                this.paint = false;
+
+            }
+
         },
 
         _addClick: function(x, y, dragging) {
